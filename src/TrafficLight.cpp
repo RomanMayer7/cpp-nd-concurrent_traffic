@@ -67,8 +67,6 @@ void TrafficLight::waitForGreen()
 			return;
 		}
 
-        /* Sleep between the iterations*/
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 }
 
@@ -90,8 +88,12 @@ void TrafficLight::cycleThroughPhases()
     // and toggles the current phase of the traffic light between red and green and sends an update method 
     // to the message queue using move semantics. The cycle duration is a random value between 4 and 6 seconds. 
 
-       std::default_random_engine defEngine(time(0));
-       std::uniform_int_distribution<int> randomValue(4, 6);
+       //std::default_random_engine defEngine(time(0));
+       //std::uniform_int_distribution<int> randomValue(4, 6);
+
+       std::random_device rd;
+       std::mt19937 defEngine(rd());
+       std::uniform_int_distribution<> randomValue(4, 6);
 
        //Lock the Standart Output to print out the Message
 	   std::unique_lock<std::mutex> lck(_mutex);
